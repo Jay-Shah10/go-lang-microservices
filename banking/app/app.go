@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-func start() {
+func Start() {
 	// function handlers.
 	http.HandleFunc("/status/check", statusCheckHandler)
 	http.ListenAndServe("localhost:8000", nil)
