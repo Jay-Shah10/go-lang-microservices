@@ -24,3 +24,6 @@ func (s DefaultCustomerService) getAllCustomer() ([]domain.Customer, error) {
 func NewCustomerService(repository domain.CustomerRepository) DefaultCustomerService {
 	return DefaultCustomerService{repository}
 }
+
+// This whole thing now connects our primary port to the secondary port.
+// From this to the customerRepoStub. Service port is the primary port.
