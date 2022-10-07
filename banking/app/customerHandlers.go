@@ -17,7 +17,7 @@ type Customer struct {
 }
 
 // handler functions.
-func statusCheckHandler(w http.ResponseWriter, r *http.Request) {
+func greet(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Hello World")
 }
 

@@ -3,11 +3,17 @@ package app
 import (
 	"log"
 	"net/http"
+
+	"github.com/gorilla/mux"
 )
 
 func Start() {
+
+	mux := mux.NewRouter()
+
 	// function handlers.
-	http.HandleFunc("/status/check", statusCheckHandler)
+	mux.HandleFunc("/greet", greet)
+	mux.HandleFunc("/customers", getAllCustomers)
 	http.ListenAndServe("localhost:8000", nil)
 
 	// failure to start server.

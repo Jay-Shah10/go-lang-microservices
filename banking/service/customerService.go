@@ -10,13 +10,13 @@ type CustomerService interface {
 	getAllCustomer() ([]domain.Customer, error)
 }
 
-// servie implementation for our port. This is the Business Logic.
+// service implementation for our port. This is the Business Logic.
 type DefaultCustomerService struct {
 	repo domain.CustomerRepository
 }
 
 // receiver function.
-func (s DefaultCustomerService) getAllCustomer() ([]domain.Customer, error) {
+func (s DefaultCustomerService) GetAllCustomer() ([]domain.Customer, error) {
 	return s.repo.FindAll()
 }
 
