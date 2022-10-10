@@ -3,8 +3,9 @@ package app
 import (
 	"encoding/json"
 	"encoding/xml"
-	"fmt"
 	"net/http"
+
+	"github.com/Jay-Shah10/go-lang-microservices/banking/service"
 )
 
 // These are hints for JSON encoding.
@@ -16,15 +17,21 @@ type Customer struct {
 	Zipcode string `json: "zip_code" xml: "zip_code"`
 }
 
-// handler functions.
-func greet(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Hello World")
+type CustomerHandlers struct {
+	service service.CustomerService
 }
 
-func getAllCustomers(w http.ResponseWriter, r *http.Request) {
-	customers := []Customer{
-		{Name: "John", City: "Test", Zipcode: "12345"},
-	}
+// handler functions.
+// func greet(w http.ResponseWriter, r *http.Request) {
+// 	fmt.Println("Hello World")
+// }
+
+func (ch *CustomerHandlers) getAllCustomers(w http.ResponseWriter, r *http.Request) { // this is starting to make the connection and then to the rest.
+	// customers := []Customer{
+	// 	{Name: "John", City: "Test", Zipcode: "12345"},
+	// }
+
+	customers, _ := ch.service.GetAllCustomer()
 
 	// Condition for the different type of headers.
 	// This way we can handle both types of data.

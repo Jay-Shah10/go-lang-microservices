@@ -7,7 +7,7 @@ import (
 // This is our primary port. Since we know that all ports are interfaces, this is an interface.
 // Goal is to connect our primary port to the secondary port, which is the customerRepositoryStub.
 type CustomerService interface {
-	getAllCustomer() ([]domain.Customer, error)
+	GetAllCustomer() ([]domain.Customer, error)
 }
 
 // service implementation for our port. This is the Business Logic.
