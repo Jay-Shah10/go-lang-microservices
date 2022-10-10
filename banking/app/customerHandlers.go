@@ -28,11 +28,11 @@ func getAllCustomers(w http.ResponseWriter, r *http.Request) {
 
 	// Condition for the different type of headers.
 	// This way we can handle both types of data.
-	if r.Header.Get("Contet-Type") == "application/json" {
+	if r.Header.Get("Content-Type") == "application/json" {
 		w.Header().Add("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(customers)
 	} else {
-		w.Header().Add("Context-Type", "application/xml")
+		w.Header().Add("Content-Type", "application/xml")
 		xml.NewEncoder(w).Encode(customers)
 	}
 
