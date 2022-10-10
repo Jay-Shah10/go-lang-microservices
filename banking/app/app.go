@@ -9,12 +9,12 @@ import (
 
 func Start() {
 
-	mux := mux.NewRouter()
+	router := mux.NewRouter()
 
 	// function handlers.
-	mux.HandleFunc("/greet", greet)
-	mux.HandleFunc("/customers", getAllCustomers)
+	router.HandleFunc("/greet", greet)
+	router.HandleFunc("/customers", getAllCustomers)
 
 	// failure to start server.
-	log.Fatal(http.ListenAndServe("localhost:8000", mux))
+	log.Fatal(http.ListenAndServe("localhost:8000", router))
 }
