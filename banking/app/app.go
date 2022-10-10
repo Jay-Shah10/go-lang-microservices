@@ -37,4 +37,4 @@ func Start() {
 
 // }
 
-// Section Bookmark:
+// Section to start: section 3: 11 Database adapter.
