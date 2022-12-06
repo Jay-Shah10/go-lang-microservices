@@ -13,7 +13,7 @@ func (s CustomerRepositoryStub) FindAll() ([]Customer, error) {
 // helper function to make new customer repo stub.
 func NewCustomerRepositoryStub() CustomerRepositoryStub {
 	customers := []Customer{
-		{Id: "1001", Name: "Jay", City: "Duluth", Zipcode: "12345", DateOfBirty: "1993-10-24"},
+		{Id: "1001", Name: "Jay", City: "Duluth", Zipcode: "12345", DateOfBirth: "1993-10-24"},
 	}
 	return CustomerRepositoryStub{customers}
 }

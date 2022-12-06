@@ -8,8 +8,8 @@ import (
 // This is our primary port. Since we know that all ports are interfaces, this is an interface.
 // Goal is to connect our primary port to the secondary port, which is the customerRepositoryStub.
 type CustomerService interface {
-	GetAllCustomer() ([]domain.Customer, *err.AppErrors)
-	GetCustomer(string) (*domain.Customer, *err.AppErrors)
+	GetAllCustomer(status string) ([]domain.Customer, *err.AppErrors)
+	GetCustomer(id string) (*domain.Customer, *err.AppErrors)
 }
 
 // service implementation for our port. This is the Business Logic.
@@ -18,8 +18,15 @@ type DefaultCustomerService struct {
 }
 
 // receiver function.
-func (s DefaultCustomerService) GetAllCustomer() ([]domain.Customer, *err.AppErrors) {
-	return s.repo.FindAll()
+func (s DefaultCustomerService) GetAllCustomer(status string) ([]domain.Customer, *err.AppErrors) {
+	if status == "active" {
+		status = "1"
+	} else if status == "inactive" {
+		status = "0"
+	} else {
+		status = ""
+	}
+	return s.repo.FindAll(status)
 }
 
 // receiver function.

@@ -8,12 +8,13 @@ type Customer struct {
 	Name        string
 	City        string
 	Zipcode     string
-	DateOfBirty string
+	DateOfBirth string
 	Status      string
 }
 
 // Defining the interface to be used with the domain. Adding the repository.
 type CustomerRepository interface {
-	FindAll() ([]Customer, *err.AppErrors)
-	ById(string) (*Customer, *err.AppErrors) // this is a pointer because we want to send nil if the customer does not exist.
+	FindAll(status string) ([]Customer, *err.AppErrors) // options: status=1 == active, status=0 == inactive, and status=''
+	ById(id string) (*Customer, *err.AppErrors)         // this is a pointer because we want to send nil if the customer does not exist.
+
 }
