@@ -1,15 +1,18 @@
 package app
 
 import (
-	"log"
 	"net/http"
 
 	"github.com/Jay-Shah10/go-lang-microservices/banking/domain"
+	"github.com/Jay-Shah10/go-lang-microservices/banking/logger"
 	"github.com/Jay-Shah10/go-lang-microservices/banking/service"
 	"github.com/gorilla/mux"
 )
 
 func Start() {
+
+	// logging:
+	logger.Info("starting the server.")
 
 	router := mux.NewRouter()
 
@@ -26,7 +29,11 @@ func Start() {
 	// router.HandleFunc("/customers", createCustomer).Methods(http.MethodPost) // getting more post.
 
 	// failure to start server.
-	log.Fatal(http.ListenAndServe("localhost:8000", router))
+	err := http.ListenAndServe("localhost:8000", router)
+	if err != nil {
+		logger.Error("Failure to start server", err)
+	}
+
 }
 
 // ability to print out a value from the url in this example. We can also use this to get a certain customer.

@@ -12,10 +12,10 @@ func (d CustomerRepositoryDb) FindAll(status string) ([]Customer, *err.AppErrors
 	var err error
 
 	if status == "" {
-		findAllSql := "query"
+		findAllSql := "select Id, Name, City, Zipcode, DateOfBirth, Status from customer"
 		rows, err := d.client.Query(findAllSql)
 	}else {
-	findAllSql := "query"
+	findAllSql := "select Id, Name, City, Zipcode, DateOfBirth, Status from customer"
 		rows, err := d.client.Query(findAllSql, status)
 	}
 		
@@ -40,37 +40,36 @@ func (d CustomerRepositoryDb) FindAll(status string) ([]Customer, *err.AppErrors
 }
 func (d CustomerRepositoryDb) ById(id string) (*Customer, *err.AppErrors) {
 	
-		customersql := '<same as the one in findall, but it will have a where clause.>'
-
-		row := d.client.QueryRow(customersql, id)
-		var c Customer
-		err := row.Scan(&c.Id, &c.Name, &c.City, &c.Zipcode, &c.DateOfBirth, &c.Status)
-		if err != nil {
-			if err == sql.ErrNoRows {
+	customersql := '<same as the one in findall, but it will have a where clause.>'
+	row := d.client.QueryRow(customersql, id)
+	var c Customer
+	err := row.Scan(&c.Id, &c.Name, &c.City, &c.Zipcode, &c.DateOfBirth, &c.Status)
+	if err != nil {
+		if err == sql.ErrNoRows {
 				return nil, errs.NewNotFoundError("Customer not found")
-			}else {
-				fmt.Println("Error while scanning customer... " + err.Error)
-				return nil, errs.NewUnexpectedError("Unexpected Database Error")
-			}
+		}else {
+			fmt.Println("Error while scanning customer... " + err.Error)
+			return nil, errs.NewUnexpectedError("Unexpected Database Error")
 		}
-		return &c, nil
+	}
+	return &c, nil
 	
 
 }
 
 func NewCustomerRepositoryDb() CustomerRepositoryDb {
-	/*
-		client, err := sql.Open("mysql", "user:password@/dbname")
-			if err != nil{
-				panic(err)
-			}
 
-		// see "Important Settings" section.
-		client.SetMaxLifttime(time.Minute * 3)
-		client.SetMaxConns(10)
-		client.SetMaxIdleConns(10)
-		return CustomerRepositoryDb{client}
-	*/
+	client, err := sql.Open("mysql", "user:password@/dbname")
+		if err != nil{
+			panic(err)
+		}
+
+	// see "Important Settings" section.
+	client.SetMaxLifttime(time.Minute * 3)
+	client.SetMaxConns(10)
+	client.SetMaxIdleConns(10)
+	return CustomerRepositoryDb{client}
+
 
 }
 
